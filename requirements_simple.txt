@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+pandas
+sympy
+matplotlib
+cirq
+requests 

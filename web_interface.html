@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Blockchain v1 - Web Interface</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .content {
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .status {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .error {
+            background: #ffebee;
+            border: 1px solid #f44336;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚛️ Quantum Blockchain v1</h1>
+            <p>The World's Most Secure Blockchain Technology</p>
+        </div>
+        
+        <div class="content">
+            <div id="status" class="status">
+                🟢 Server Status: Connected to http://localhost:8001
+            </div>
+            
+            <div class="grid">
+                <div class="section">
+                    <h2>📋 Blockchain Info</h2>
+                    <button onclick="getChain()">Get Blockchain</button>
+                    <button onclick="validateChain()">Validate Chain</button>
+                    <button onclick="getQuantumState()">Get Quantum State</button>
+                    <div id="blockchain-result" class="result"></div>
+                </div>
+                
+                <div class="section">
+                    <h2>💰 Transactions</h2>
+                    <div class="form-group">
+                        <label>Sender:</label>
+                        <input type="text" id="sender" placeholder="Alice" value="Alice">
+                    </div>
+                    <div class="form-group">
+                        <label>Recipient:</label>
+                        <input type="text" id="recipient" placeholder="Bob" value="Bob">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount:</label>
+                        <input type="number" id="amount" placeholder="100" value="100">
+                    </div>
+                    <button onclick="addTransaction()">Add Transaction</button>
+                    <button onclick="mineBlock()">Mine Block</button>
+                    <div id="transaction-result" class="result"></div>
+                </div>
+                
+                <div class="section">
+                    <h2>📜 Smart Contracts</h2>
+                    <div class="form-group">
+                        <label>Contract ID:</label>
+                        <input type="text" id="contract-id" placeholder="MyContract" value="MyContract">
+                    </div>
+                    <div class="form-group">
+                        <label>Contract Code (Solidity):</label>
+                        <textarea id="contract-code" placeholder="pragma solidity ^0.8.0; contract MyContract { ... }">pragma solidity ^0.8.0;
+
+contract MyContract {
+    string public message;
+    
+    constructor() {
+        message = "Hello from Quantum Blockchain!";
+    }
+    
+    function setMessage(string memory newMessage) public {
+        message = newMessage;
+    }
+    
+    function getMessage() public view returns (string memory) {
+        return message;
+    }
+}</textarea>
+                    </div>
+                    <button onclick="deployContract()">Deploy Contract</button>
+                    <button onclick="listContracts()">List Contracts</button>
+                    <div id="contract-result" class="result"></div>
+                </div>
+                
+                <div class="section">
+                    <h2>⚡ Execute Contract</h2>
+                    <div class="form-group">
+                        <label>Contract ID:</label>
+                        <input type="text" id="execute-contract-id" placeholder="MyContract">
+                    </div>
+                    <div class="form-group">
+                        <label>Arguments (comma-separated):</label>
+                        <input type="text" id="execute-args" placeholder="new message">
+                    </div>
+                    <button onclick="executeContract()">Execute Contract</button>
+                    <div id="execute-result" class="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:8001';
+        
+        function showResult(elementId, data) {
+            const element = document.getElementById(elementId);
+            element.textContent = JSON.stringify(data, null, 2);
+        }
+        
+        function showError(elementId, error) {
+            const element = document.getElementById(elementId);
+            element.textContent = `Error: ${error}`;
+            element.className = 'result error';
+        }
+        
+        async function apiCall(endpoint, method = 'GET', data = null) {
+            try {
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors'
+                };
+                
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(`${BASE_URL}${endpoint}`, options);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+        
+        async function getChain() {
+            try {
+                const result = await apiCall('/chain');
+                showResult('blockchain-result', result);
+            } catch (error) {
+                showError('blockchain-result', error.message);
+            }
+        }
+        
+        async function validateChain() {
+            try {
+                const result = await apiCall('/validate');
+                showResult('blockchain-result', result);
+            } catch (error) {
+                showError('blockchain-result', error.message);
+            }
+        }
+        
+        async function getQuantumState() {
+            try {
+                const result = await apiCall('/quantum_state');
+                showResult('blockchain-result', result);
+            } catch (error) {
+                showError('blockchain-result', error.message);
+            }
+        }
+        
+        async function addTransaction() {
+            try {
+                const data = {
+                    sender: document.getElementById('sender').value,
+                    recipient: document.getElementById('recipient').value,
+                    amount: parseFloat(document.getElementById('amount').value)
+                };
+                
+                const result = await apiCall('/transactions/new', 'POST', data);
+                showResult('transaction-result', result);
+            } catch (error) {
+                showError('transaction-result', error.message);
+            }
+        }
+        
+        async function mineBlock() {
+            try {
+                const result = await apiCall('/mine');
+                showResult('transaction-result', result);
+            } catch (error) {
+                showError('transaction-result', error.message);
+            }
+        }
+        
+        async function deployContract() {
+            try {
+                const data = {
+                    contract_id: document.getElementById('contract-id').value,
+                    contract_code: document.getElementById('contract-code').value
+                };
+                
+                const result = await apiCall('/smart_contract/deploy', 'POST', data);
+                showResult('contract-result', result);
+            } catch (error) {
+                showError('contract-result', error.message);
+            }
+        }
+        
+        async function listContracts() {
+            try {
+                const result = await apiCall('/smart_contracts');
+                showResult('contract-result', result);
+            } catch (error) {
+                showError('contract-result', error.message);
+            }
+        }
+        
+        async function executeContract() {
+            try {
+                const args = document.getElementById('execute-args').value
+                    .split(',')
+                    .map(arg => arg.trim())
+                    .filter(arg => arg.length > 0);
+                
+                const data = {
+                    contract_id: document.getElementById('execute-contract-id').value,
+                    args: args
+                };
+                
+                const result = await apiCall('/smart_contract/execute', 'POST', data);
+                showResult('execute-result', result);
+            } catch (error) {
+                showError('execute-result', error.message);
+            }
+        }
+        
+        // Auto-load blockchain info on page load
+        window.onload = function() {
+            getChain();
+        };
+    </script>
+</body>
+</html> 
