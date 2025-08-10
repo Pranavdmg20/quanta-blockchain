@@ -138,6 +138,6 @@ dmypy.json
 .DS_Store
 Thumbs.db
 
-# Quantum Blockchain specific
+# Quanta Block specific
 *.log
 server.log 

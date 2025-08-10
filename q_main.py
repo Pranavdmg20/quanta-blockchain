@@ -6,7 +6,7 @@ import uvicorn
 from typing import List
 from quantum_blockchain import QuantumBlockchain
 
-# Initialize FastAPI and Quantum Blockchain
+# Initialize FastAPI and Quanta Block
 app = _fastapi.FastAPI()
 
 # Add CORS middleware to allow web interface

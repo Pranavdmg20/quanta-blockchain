@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test script for Quantum Blockchain v1
+Test script for Quanta Block
 This script demonstrates all the features of the quantum blockchain
 """
 
