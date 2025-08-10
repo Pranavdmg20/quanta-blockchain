@@ -1,4 +1,4 @@
-# ⚛️ Quantum Blockchain v1
+# ⚛️ Quanta Block
 
 **The World's Most Secure Blockchain Technology**
 
@@ -9,7 +9,7 @@
 
 ## 🌟 Overview
 
-Quantum Blockchain v1 is a revolutionary blockchain implementation that integrates quantum computing principles to achieve unparalleled security and efficiency. By leveraging quantum-generated signatures, random numbers, and algorithms, this blockchain is designed to be resilient against quantum attacks, making it the world's most secure blockchain technology.
+Quanta Block is a revolutionary blockchain implementation that integrates quantum computing principles to achieve unparalleled security and efficiency. By leveraging quantum-generated signatures, random numbers, and algorithms, this blockchain is designed to be resilient against quantum attacks, making it the world's most secure blockchain technology.
 
 ## 🚀 Features
 
@@ -187,4 +187,4 @@ If you find this project useful, please consider giving it a ⭐ on GitHub!
 
 ---
 
-**⚛️ Quantum Blockchain v1 - Securing the Future of Blockchain Technology** 
+**⚛️ Quanta Block - Securing the Future of Blockchain Technology** 

@@ -27,7 +27,7 @@ def test_endpoint(endpoint, method="GET", data=None):
         return {"error": str(e)}
 
 def main():
-    print("🚀 Quantum Blockchain v1 - Feature Demonstration")
+    print("🚀 Quanta Block - Feature Demonstration")
     print("=" * 50)
     
     # Test 1: Get blockchain
@@ -69,7 +69,7 @@ def main():
             uint public counter;
             
             constructor() {
-                message = "Hello from Quantum Blockchain!";
+                message = "Hello from Quanta Block!";
                 counter = 0;
             }
             
@@ -100,7 +100,7 @@ def main():
     print("\n7. ⚡ Executing smart contract...")
     execution_data = {
         "contract_id": "TestContract",
-        "args": ["Updated message from quantum blockchain!"]
+        "args": ["Updated message from Quanta Block!"]
     }
     execution = test_endpoint("/smart_contract/execute", "POST", execution_data)
     print(f"   Execution result: {execution.get('result', 'N/A')}")
@@ -110,7 +110,7 @@ def main():
     updated_chain = test_endpoint("/chain")
     print(f"   Updated blockchain length: {updated_chain.get('length', 'N/A')}")
     
-    print("\n🎉 Quantum Blockchain v1 demonstration completed!")
+    print("\n🎉 Quanta Block demonstration completed!")
     print(f"🌐 Server running at: {BASE_URL}")
     print("📖 Available endpoints:")
     print("   - GET  /chain - Get blockchain")
@@ -123,4 +123,4 @@ def main():
     print("   - GET  /smart_contracts - List contracts")
 
 if __name__ == "__main__":
-    main() 
+    main()

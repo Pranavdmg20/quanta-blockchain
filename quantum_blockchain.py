@@ -133,7 +133,7 @@ class QuantumBlockchain:
         if "setMessage" in contract_code and len(args) > 0:
             return f"Message set to: {args[0]}"
         elif "getMessage" in contract_code:
-            return "Hello from Quantum Blockchain!"
+            return "Hello from Quanta Block!"
         elif "transfer" in contract_code and len(args) >= 3:
             return f"Transferred {args[2]} from {args[0]} to {args[1]}"
         else:
